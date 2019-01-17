@@ -13,6 +13,7 @@ MunroView.prototype.render = function () {
   const list = this.createUl()
   this.createLi(`Meaning: ${this.munro.meaning}.`, list);
   this.createLi(`Height: ${this.munro.height} m`, list);
+  this.createLi(`Region: ${this.munro.region}.`, list);
 };
 
 MunroView.prototype.createH3 = function (text) {
