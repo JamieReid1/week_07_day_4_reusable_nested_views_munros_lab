@@ -16,7 +16,6 @@ Munros.prototype.getData = function () {
   const request = new RequestHelper(url);
   const myPromise = request.get();
   myPromise.then((data) => {
-    console.dir(data);
     this.data = data;
     PubSub.publish('Munros:munro-data-loaded', this.data);
   })

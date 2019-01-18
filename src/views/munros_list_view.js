@@ -8,19 +8,31 @@ const MunrosListView = function(container) {
 };
 
 
+let uniqueRegions;
+
 MunrosListView.prototype.bindEvents = function () {
+  let index;
+  let munros
   PubSub.subscribe('Munros:munro-data-loaded', (event) => {
-    console.dir(event);
-    this.munros = event.detail;
-    this.render();
+    munros = event.detail
+    allRegions = munros.map(munro => munro.region)
+    uniqueRegions = Array.from(new Set(allRegions))
+  });
+  PubSub.subscribe('SelectView:change', (event) => {
+    index = event.detail;
+    this.render(munros, index)
   })
 };
 
-MunrosListView.prototype.render = function () {
-  this.munros.forEach(munro => {
-    const munroView = new MunroView(this.container, munro);
-    munroView.render();
-  })
+MunrosListView.prototype.render = function (munros, index) {
+  this.container.innerHTML = '';
+  munros.forEach(munro => {
+    if (munro.region === uniqueRegions[index]) {
+    const selectedMunro = new MunroView(this.container, munro);
+    selectedMunro.render();
+    }
+  });
+
 };
 
 

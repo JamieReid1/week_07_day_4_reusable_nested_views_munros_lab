@@ -7,10 +7,8 @@ const SelectView = function(element) {
 SelectView.prototype.bindEvents = function () {
   PubSub.subscribe('Munros:munro-data-loaded', (evt) => {
     const allMunros = event.detail
-    console.log(event);
     allRegions = allMunros.map(munro => munro.region)
     uniqueRegions = Array.from(new Set(allRegions))
-    console.log(uniqueRegions);
     this.populate(uniqueRegions)
   });
 
